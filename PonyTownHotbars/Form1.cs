@@ -291,129 +291,7 @@ namespace PonyTownHotbars
                                 new Rectangle(29 * (currentInt % 50), 29 * (EmoteMap.MOUTHS + (int)Math.Floor((float)currentInt / 50)), 29, 29),
                                 GraphicsUnit.Pixel);
                         }
-
-
-
-                     //   int lookingTop = debugView.Checked ? 0 : 1;
-                     //
-                     //
-                     //   Point pt = new Point(29 * (emote.getPupilLeft() % 50), 29 * (EmoteMap.LOOK + (int)Math.Floor((double)emote.getPupilLeft() / 50)));
-                     //   if (!debugView.Checked && emote.getPupilLeft() > (int)PonyTownLooking.Maximum)
-                     //   {
-                     //       pt = new Point(29 * ((int)PonyTownLooking.Maximum % 50), 29 * (EmoteMap.LOOK + (int)Math.Floor((float)PonyTownLooking.Maximum / 50)));
-                     //   }
-                     //
-                     //   g.DrawImage(PTEmoteImageMap,
-                     //       new Rectangle(13, lookingTop * 6, 16, 20),
-                     //       new Rectangle(pt.X + 13, pt.Y + lookingTop * 6, 16, 20),
-                     //       GraphicsUnit.Pixel);
-                     //
-                     //
-                     //   if (!debugView.Checked && emote.getPupilRight() > (int)PonyTownLooking.Maximum)
-                     //   {
-                     //       pt = new Point(29 * ((int)PonyTownLooking.Maximum % 50), 29 * (EmoteMap.LOOK + (int)Math.Floor((float)PonyTownLooking.Maximum / 50)));
-                     //   }else
-                     //   {
-                     //       pt = new Point(29 * (emote.getPupilRight() % 50), 29 * (EmoteMap.LOOK + (int)Math.Floor((double)emote.getPupilRight() / 50)));
-                     //   }
-                     //   g.DrawImage(PTEmoteImageMap,
-                     //       new Rectangle(0, lookingTop * 6, 13, 20),
-                     //       new Rectangle(pt.X, pt.Y + lookingTop * 6, 13, 20),
-                     //       GraphicsUnit.Pixel);
-                     //
-                     //
-                     //
-                     //   if (!debugView.Checked && emote.getSleep() == 1 && !emote.getEyeLeftEnum().ToString().Contains("CLOSED")) {
-                     //       pt = new Point(29 * ((int)PonyTownEye.SLEEP_CLOSED % 50), 29 * (EmoteMap.EYES + (int)PonyTownEye.SLEEP_CLOSED / 50));
-                     //   }
-                     //   else if (!debugView.Checked && emote.getEyeLeft() > (int)PonyTownEye.Maximum)
-                     //   {
-                     //       pt = new Point(29 * ((int)PonyTownEye.Maximum % 50), 29 * (EmoteMap.EYES + (int)PonyTownEye.Maximum / 50));
-                     //   }
-                     //   else
-                     //   {
-                     //       pt = new Point(29 * (emote.getEyeLeft() % 50), 29 * (EmoteMap.EYES + (int)Math.Floor((double)emote.getEyeLeft() / 50)));
-                     //   }
-                     //
-                     //   g.DrawImage(PTEmoteImageMap,
-                     //       new Rectangle(13, 0, 16, 20),
-                     //       new Rectangle(pt.X + 13, pt.Y, 16, 20),
-                     //       GraphicsUnit.Pixel);
-                     //
-                     //
-                     //   if (!debugView.Checked && emote.getSleep() == 1 && !emote.getEyeRightEnum().ToString().Contains("CLOSED"))
-                     //   {
-                     //       pt = new Point(29 * ((int)PonyTownEye.SLEEP_CLOSED % 50), 29 * (EmoteMap.EYES + (int)PonyTownEye.SLEEP_CLOSED / 50));
-                     //   }
-                     //   else if (!debugView.Checked && emote.getEyeRight() > (int)PonyTownEye.Maximum)
-                     //   {
-                     //       pt = new Point(29 * ((int)PonyTownEye.Maximum % 50), 29 * (EmoteMap.EYES + (int)PonyTownEye.Maximum / 50));
-                     //   }
-                     //   else
-                     //   {
-                     //     pt = new Point(29 * (emote.getEyeRight() % 50), 29 * (EmoteMap.EYES + (int)Math.Floor((double)emote.getEyeRight() / 50)));
-                     //   }
-                     //   //pt = new Point(29 * (emote.getEyeRight() % 50), 29 * (EmoteMap.EYES + (int)Math.Floor((double)emote.getEyeRight() / 50)));
-                     //   g.DrawImage(PTEmoteImageMap,
-                     //       new Rectangle(0, 0, 13, 20),
-                     //       new Rectangle(pt.X, pt.Y, 13, 20),
-                     //       GraphicsUnit.Pixel);
-                     //
-                     //   //    g.DrawImage(PonyTownMap,
-                     //   //        0,
-                     //   //        0,
-                     //   //        new Rectangle(-29 * (emote.getEyeRight() % 50), 
-                     //   //        -29 * (int)Math.Floor((float)emote.getEyeRight() / 50), 
-                     //   //        13, 20), GraphicsUnit.Pixel);
-                     //   if (emote.getSleep() == 1)
-                     //   {
-                     //       if (debugView.Checked && !emote.getEyeLeftEnum().ToString().Contains("CLOSED"))
-                     //       {
-                     //           g.DrawImage(PTEmoteImageMap, new Rectangle(13, 0, 16, 20), new Rectangle(29 * 5 + 13, 29 * EmoteMap.TOGGLE, 16, 20), GraphicsUnit.Pixel);
-                     //       }
-                     //       if (debugView.Checked && !emote.getEyeRightEnum().ToString().Contains("CLOSED"))
-                     //       {
-                     //           g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 13, 20), new Rectangle(29 * 5, 29 * EmoteMap.TOGGLE, 13, 20), GraphicsUnit.Pixel);
-                     //       }
-                     //       g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * 1, 29 * EmoteMap.TOGGLE, 29, 29), GraphicsUnit.Pixel);
-                     //   }
-                     //   if (emote.getBlush() == 1)
-                     //   {
-                     //       g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * 0, 29 * EmoteMap.TOGGLE, 29, 29), GraphicsUnit.Pixel);
-                     //   }
-                     //   if (emote.getCry() == 1)
-                     //   {
-                     //       g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * 2, 29 * EmoteMap.TOGGLE, 29, 29), GraphicsUnit.Pixel);
-                     //   }
-                     //   if (emote.getTear() == 1)
-                     //   {
-                     //       g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * 3, 29 * EmoteMap.TOGGLE, 29, 29), GraphicsUnit.Pixel);
-                     //   }
-                     //   if (emote.getHeart() == 1)
-                     //   {
-                     //       g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * 4, 29 * EmoteMap.TOGGLE, 29, 29), GraphicsUnit.Pixel);
-                     //   }
-                     //
-                     //
-                     //   if (!debugView.Checked && emote.getMouth() > (int)PonyTownMouth.Maximum)
-                     //   {
-                     //       g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * ((int)PonyTownMouth.Maximum % 50), 29 * (EmoteMap.MOUTHS + (int)Math.Floor((float)PonyTownMouth.Maximum / 50)), 29, 29), GraphicsUnit.Pixel);
-                     //   }
-                     //   else
-                     //   {
-                     //       g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (emote.getMouth() % 50), 29 * (EmoteMap.MOUTHS + (int)Math.Floor((float)emote.getMouth() / 50)), 29, 29), GraphicsUnit.Pixel);
-                     //   }
                     }
-
-                   // if (Enum.TryParse(slot.cmd.Replace('-', '_').TrimStart('/'), true, out ptact))
-                   // {
-                   //     g.DrawImage(PonyTownMap, -29 * (int)ptact, -29 * 6);
-                   // }
-                   // else
-                   // {
-                   //     g.DrawImage(PonyTownMap, -29 * 3, -29 * 7);
-                   // }
-                    //g.DrawImage(PonyTownMap, -29*((int)Enum.Parse(typeof(PonyTownCommands), slot.cmd.Replace('-', '_').TrimStart('/'), true)), -29*6);
                 }
                 btn.BackColor = Color.FromArgb(231,170,78);
                 btn.FlatAppearance.BorderColor = Color.FromArgb(183, 135, 62);
@@ -421,17 +299,17 @@ namespace PonyTownHotbars
                 btn.BackgroundImage = img;
                 btn.BackgroundImageLayout = ImageLayout.None;
 
-              //  btn.Click += (object sender, EventArgs e) =>
-              //  {
-              //      copyNewFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
-              //          Clipboard.SetText("{\"expr1\":" + emote.expr1 + ",\"expr2\":" + emote.expr2 + "}");
-              //      };
-              //      copyOldFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
-              //          Clipboard.SetText("{\"exp\":" + emote.exp + "}");
-              //      };
-              //      btn.Parent.Focus();
-              //      emoteContextMenu.Show(Cursor.Position);
-              //  };
+                btn.Click += (object sender, EventArgs e) =>
+                {
+                    copyNewFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
+                        Clipboard.SetText("{\"expr1\":" + emote.expr1 + ",\"expr2\":" + emote.expr2 + "}");
+                    };
+                    copyOldFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
+                        Clipboard.SetText("{\"exp\":" + emote.exp + "}");
+                    };
+                    btn.Parent.Focus();
+                    emoteContextMenu.Show(Cursor.Position);
+                };
             }
         }
 
