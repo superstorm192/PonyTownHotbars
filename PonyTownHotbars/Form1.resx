@@ -130,7 +130,9 @@
     <value>704, 17</value>
   </metadata>
   <data name="debugView.ToolTip" xml:space="preserve">
-    <value>Changing this will reload all hotbars.
+    <value>CLICK to reload all hotbars.
+SHIFT+CLICK to toggle debug mode then reload.
+
 When enabled:
   -closed sleeping eyes are transparent
   -invalid eyes/looks/mouths are distinguished

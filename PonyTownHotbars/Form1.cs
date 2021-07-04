@@ -20,6 +20,7 @@ namespace PonyTownHotbars
             hotbarPanel.HorizontalScroll.Enabled = false;
             hotbarPanel.VerticalScroll.Enabled = true;
             hotbarPanel.VerticalScroll.Visible = true;
+            toolStripStatusVersion.Text = "Version 1.0";
         }
         //Image PTEmoteImageMap = Image.FromFile(Application.StartupPath + "/PonyTownEmotes.png");
         Image PTEmoteImageMap = Properties.Resources.PonyTownEmotes;
@@ -420,23 +421,27 @@ namespace PonyTownHotbars
                 btn.BackgroundImage = img;
                 btn.BackgroundImageLayout = ImageLayout.None;
 
-                btn.Click += (object sender, EventArgs e) =>
-                {
-                    copyNewFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
-                        Clipboard.SetText("{\"expr1\":" + emote.expr1 + ",\"expr2\":" + emote.expr2 + "}");
-                    };
-                    copyOldFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
-                        Clipboard.SetText("{\"exp\":" + emote.exp + "}");
-                    };
-                    btn.Parent.Focus();
-                    emoteContextMenu.Show(Cursor.Position);
-                };
+              //  btn.Click += (object sender, EventArgs e) =>
+              //  {
+              //      copyNewFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
+              //          Clipboard.SetText("{\"expr1\":" + emote.expr1 + ",\"expr2\":" + emote.expr2 + "}");
+              //      };
+              //      copyOldFormatToolStripMenuItem.Click += (object sender2, EventArgs e2) => {
+              //          Clipboard.SetText("{\"exp\":" + emote.exp + "}");
+              //      };
+              //      btn.Parent.Focus();
+              //      emoteContextMenu.Show(Cursor.Position);
+              //  };
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             filePath.Text = Application.StartupPath;
+            if (PonyTownHotbars.Properties.Settings.Default.FilePath != "")
+            {
+                filePath.Text = Properties.Settings.Default.FilePath;
+            }
             //statusLabel.Text = "Loading hotbars from " + filePath.Text;
             setUpHotbars();
 
@@ -445,14 +450,10 @@ namespace PonyTownHotbars
             //    "\n252446982, 6659 =>"+PonyTownEmote.ConvertToOldFormat(252446982, 6659));
         }
 
-        private void filePath_TextChanged(object sender, EventArgs e)
-        {
-            setUpHotbars();
-        }
-
         private void setUpHotbars()
         {
-            statusLabel.Text = "Loading hotbars for " + filePath.Text;
+            statusLabel.Text = "Loading hotbars...";
+            DateTime now = DateTime.UtcNow;
             emoteTooltips.RemoveAll();
             
             hotbarPanel.Controls.Clear();
@@ -649,12 +650,18 @@ namespace PonyTownHotbars
                 hotbarPanel.Controls.Add(gb);
             }
             hotbarPanel.ResumeLayout();
-            statusLabel.Text = "Loaded " + hotbarPanel.Controls.Count + " files.";
+            statusLabel.Text = "Loaded " + hotbarPanel.Controls.Count + " bars in " + (DateTime.UtcNow - now).TotalMilliseconds + " ms.";
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-        //    PonyTownHotbars.Properties.Resources.Filepath = filePath.Text;
+            Properties.Settings.Default.FilePath = filePath.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void filePath_TextChanged(object sender, EventArgs e)
+        {
+            setUpHotbars();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -694,7 +701,20 @@ namespace PonyTownHotbars
 
         private void debugView_CheckedChanged(object sender, EventArgs e)
         {
+            if( Control.ModifierKeys != Keys.Shift)
+            {
+                debugView.CheckedChanged -= debugView_CheckedChanged;
+                debugView.Checked = !debugView.Checked;
+                debugView.CheckedChanged += debugView_CheckedChanged;
+            }
+            debugView.Text = debugView.Checked ? "Reload 🔍" : "Reload [  ]";
+            hotbarPanel.Focus();
             setUpHotbars();
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/superstorm192/PonyTownHotbars");
         }
     }
 
