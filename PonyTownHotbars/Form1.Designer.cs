@@ -32,10 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.filePath = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.folder = new System.Windows.Forms.Button();
             this.hotbarPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.emoteTooltips = new System.Windows.Forms.ToolTip(this.components);
-            this.debugView = new System.Windows.Forms.CheckBox();
+            this.debugMode = new System.Windows.Forms.CheckBox();
             this.emoteContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyNewFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyOldFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +45,7 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.reload = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.emoteContextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -61,20 +62,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.filePath.Location = new System.Drawing.Point(12, 12);
             this.filePath.Name = "filePath";
-            this.filePath.Size = new System.Drawing.Size(873, 20);
+            this.filePath.Size = new System.Drawing.Size(832, 20);
             this.filePath.TabIndex = 0;
             this.filePath.TextChanged += new System.EventHandler(this.filePath_TextChanged);
             // 
-            // button1
+            // folder
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(891, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 22);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Select Folder";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.folder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.folder.Location = new System.Drawing.Point(850, 11);
+            this.folder.Name = "folder";
+            this.folder.Size = new System.Drawing.Size(86, 22);
+            this.folder.TabIndex = 1;
+            this.folder.Text = "Select Folder";
+            this.folder.UseVisualStyleBackColor = true;
+            this.folder.Click += new System.EventHandler(this.button1_Click);
             // 
             // hotbarPanel
             // 
@@ -90,20 +91,19 @@
             this.hotbarPanel.TabIndex = 3;
             this.hotbarPanel.WrapContents = false;
             // 
-            // debugView
+            // debugMode
             // 
-            this.debugView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.debugView.Appearance = System.Windows.Forms.Appearance.Button;
-            this.debugView.Location = new System.Drawing.Point(983, 11);
-            this.debugView.Name = "debugView";
-            this.debugView.Size = new System.Drawing.Size(89, 22);
-            this.debugView.TabIndex = 4;
-            this.debugView.Text = "Reload [  ]";
-            this.debugView.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.emoteTooltips.SetToolTip(this.debugView, "\r\n");
-            this.toolTip1.SetToolTip(this.debugView, resources.GetString("debugView.ToolTip"));
-            this.debugView.UseVisualStyleBackColor = true;
-            this.debugView.CheckedChanged += new System.EventHandler(this.debugView_CheckedChanged);
+            this.debugMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.debugMode.Location = new System.Drawing.Point(1010, 11);
+            this.debugMode.Name = "debugMode";
+            this.debugMode.Size = new System.Drawing.Size(62, 22);
+            this.debugMode.TabIndex = 6;
+            this.debugMode.Text = "Debug";
+            this.debugMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.emoteTooltips.SetToolTip(this.debugMode, "\r\n");
+            this.toolTip1.SetToolTip(this.debugMode, resources.GetString("debugMode.ToolTip"));
+            this.debugMode.UseVisualStyleBackColor = true;
+            this.debugMode.CheckedChanged += new System.EventHandler(this.debugView_CheckedChanged);
             // 
             // emoteContextMenu
             // 
@@ -166,15 +166,27 @@
             this.toolStripStatusLabel1.Text = "No Emote Selected";
             this.toolStripStatusLabel1.Visible = false;
             // 
+            // reload
+            // 
+            this.reload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.reload.Location = new System.Drawing.Point(942, 11);
+            this.reload.Name = "reload";
+            this.reload.Size = new System.Drawing.Size(62, 22);
+            this.reload.TabIndex = 7;
+            this.reload.Text = "Reload";
+            this.reload.UseVisualStyleBackColor = true;
+            this.reload.Click += new System.EventHandler(this.reload_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 476);
+            this.Controls.Add(this.reload);
+            this.Controls.Add(this.debugMode);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.debugView);
             this.Controls.Add(this.hotbarPanel);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.folder);
             this.Controls.Add(this.filePath);
             this.Name = "Form1";
             this.Text = "PonyTown Hotbar Viewer";
@@ -194,19 +206,20 @@
 
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.TextBox filePath;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button folder;
         private System.Windows.Forms.FlowLayoutPanel hotbarPanel;
         private System.Windows.Forms.ToolTip emoteTooltips;
         private System.Windows.Forms.ContextMenuStrip emoteContextMenu;
         private System.Windows.Forms.ToolStripMenuItem copyNewFormatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyOldFormatToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.CheckBox debugView;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusVersion;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button reload;
+        private System.Windows.Forms.CheckBox debugMode;
     }
 }
 

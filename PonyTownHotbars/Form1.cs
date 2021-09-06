@@ -20,10 +20,22 @@ namespace PonyTownHotbars
             hotbarPanel.HorizontalScroll.Enabled = false;
             hotbarPanel.VerticalScroll.Enabled = true;
             hotbarPanel.VerticalScroll.Visible = true;
-            toolStripStatusVersion.Text = "Version 1.0";
+            toolStripStatusVersion.Text = "Version 1.01";
         }
         //Image PTEmoteImageMap = Image.FromFile(Application.StartupPath + "/PonyTownEmotes.png");
         Image PTEmoteImageMap = Properties.Resources.PonyTownEmotes;
+
+        public static class PTColors{
+            public static Color BarBackground = Color.FromArgb(124,202,146);
+            public static Color Action = Color.FromArgb(220, 157, 130);
+            public static Color Command = Color.FromArgb(95, 183, 179);
+            public static Color Emote = Color.FromArgb(231, 170, 78);
+            public static Color Program = Color.FromArgb(202, 126, 78);
+            public static Color ActionOutline = Color.FromArgb(183, 132, 110);
+            public static Color CommandOutline = Color.FromArgb(78, 150, 146);
+            public static Color EmoteOutline = Color.FromArgb(183, 135, 62);
+            public static Color ProgramOutline = Color.FromArgb(190, 105, 51);
+        }
 
         private void setPonyTownIcon(Button btn, PonyTownSlot slot)
         {
@@ -46,23 +58,32 @@ namespace PonyTownHotbars
                 //btn.Text = "ACT\n" + slot.act;
                 emoteTooltips.SetToolTip(btn, "act:" + slot.act);
 
-                Image img = new Bitmap(29, 29);
-                using (Graphics g = Graphics.FromImage(img)) {
-                    PonyTownActions ptact = PonyTownActions.BLUSH;
-                    if(Enum.TryParse(slot.act.Replace('-', '_'), true, out ptact))
-                    {
-                        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)ptact, 29 * EmoteMap.ACTIONS, 29, 29), GraphicsUnit.Pixel);
-                    }
-                    else
-                    {
-                        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)EmoteMap.SPECIAL.INVALID_ACTION, 0, 29, 29), GraphicsUnit.Pixel);
-                    }
+                //Image img = new Bitmap(29, 29);
+                //using (Graphics g = Graphics.FromImage(img)) {
+                //    PonyTownActions ptact = PonyTownActions.BLUSH;
+                //    if(Enum.TryParse(slot.act.Replace('-', '_'), true, out ptact))
+                //    {
+                //        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)ptact, 29 * EmoteMap.ACTIONS, 29, 29), GraphicsUnit.Pixel);
+                //    }
+                //    else
+                //    {
+                //        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)EmoteMap.SPECIAL.INVALID_ACTION, 0, 29, 29), GraphicsUnit.Pixel);
+                //    }
+                //}
+
+                PonyTownActions ptact = PonyTownActions.BOOP;
+                if (Enum.TryParse(slot.act.Replace('-', '_'), true, out ptact))
+                {
+                    btn.BackgroundImage = ActionImages[ptact];
+                } else {
+                    btn.BackgroundImage = SpecialImages[EmoteMap.SPECIAL.INVALID_ACTION];
                 }
-                btn.BackColor = Color.FromArgb(220, 157, 130);
-                btn.FlatAppearance.BorderColor = Color.FromArgb(183, 132, 110);
+
+                btn.BackColor = PTColors.Action;
+                btn.FlatAppearance.BorderColor = PTColors.ActionOutline;
                 btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
                 btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
-                btn.BackgroundImage = img;
+                //btn.BackgroundImage = img;
                 btn.BackgroundImageLayout = ImageLayout.None;
                 btn.Click += (object sender, EventArgs e) =>
                 {
@@ -74,25 +95,34 @@ namespace PonyTownHotbars
                 //btn.Text = "CMD\n" + slot.cmd;
                 emoteTooltips.SetToolTip(btn, "cmd:" + slot.cmd);
 
-                Image img = new Bitmap(29, 29);
-                using (Graphics g = Graphics.FromImage(img))
+                //Image img = new Bitmap(29, 29);
+                //using (Graphics g = Graphics.FromImage(img))
+                //{
+                //    PonyTownCommands ptact = PonyTownCommands.CANDIES;
+                //    if (Enum.TryParse(slot.cmd.Replace('-', '_').TrimStart('/'), true, out ptact))
+                //    {
+                //        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)ptact, 29 * EmoteMap.COMMANDS, 29, 29), GraphicsUnit.Pixel);
+                //    }
+                //    else
+                //    {
+                //        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)EmoteMap.SPECIAL.INVALID_ACTION, 0, 29, 29), GraphicsUnit.Pixel);
+                //    }
+                //    //g.DrawImage(PonyTownMap, -29*((int)Enum.Parse(typeof(PonyTownCommands), slot.cmd.Replace('-', '_').TrimStart('/'), true)), -29*6);
+                //}
+                
+                PonyTownCommands ptact = PonyTownCommands.ROLL;
+                if (Enum.TryParse(slot.cmd.Replace('-', '_').TrimStart('/'), true, out ptact))
                 {
-                    PonyTownCommands ptact = PonyTownCommands.CANDIES;
-                    if (Enum.TryParse(slot.cmd.Replace('-', '_').TrimStart('/'), true, out ptact))
-                    {
-                        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)ptact, 29 * EmoteMap.COMMANDS, 29, 29), GraphicsUnit.Pixel);
-                    }
-                    else
-                    {
-                        g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)EmoteMap.SPECIAL.INVALID_ACTION, 0, 29, 29), GraphicsUnit.Pixel);
-                    }
-                    //g.DrawImage(PonyTownMap, -29*((int)Enum.Parse(typeof(PonyTownCommands), slot.cmd.Replace('-', '_').TrimStart('/'), true)), -29*6);
+                    btn.BackgroundImage = CommandImages[ptact];
+                } else {
+                    btn.BackgroundImage = SpecialImages[EmoteMap.SPECIAL.INVALID_ACTION];
                 }
-                btn.BackColor = Color.FromArgb(95, 183, 179);
-                btn.FlatAppearance.BorderColor = Color.FromArgb(78, 150, 146);
+
+                btn.BackColor = PTColors.Command;
+                btn.FlatAppearance.BorderColor = PTColors.CommandOutline;
                 btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
                 btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
-                btn.BackgroundImage = img;
+                //btn.BackgroundImage = img;
                 btn.BackgroundImageLayout = ImageLayout.None;
                 btn.Click += (object sender, EventArgs e) =>
                 {
@@ -123,7 +153,7 @@ namespace PonyTownHotbars
                     if (emote.exp == -1 || emote.expr1 == -1)
                     {
                         emoteTooltips.SetToolTip(btn, "expr1: -1\nexpr2: -1\nexp: -1 ✓\n\nReset Expression");
-                        if (debugView.Checked)
+                        if (debugMode.Checked)
                         {
                             //Draw reset expression
                             g.DrawImage(PTEmoteImageMap, -29 * (int)EmoteMap.SPECIAL.RESET_EXPRESSION, 0);
@@ -138,7 +168,7 @@ namespace PonyTownHotbars
                     }
                     else
                     {
-                        if (debugView.Checked)
+                        if (debugMode.Checked)
                         {
                             //Draw left pupil
                             int currentInt = Math.Min((int)emote.getPupilLeft(), 249);
@@ -293,8 +323,8 @@ namespace PonyTownHotbars
                         }
                     }
                 }
-                btn.BackColor = Color.FromArgb(231,170,78);
-                btn.FlatAppearance.BorderColor = Color.FromArgb(183, 135, 62);
+                btn.BackColor = PTColors.Emote;
+                btn.FlatAppearance.BorderColor = PTColors.EmoteOutline;
                 btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
                 btn.BackgroundImage = img;
                 btn.BackgroundImageLayout = ImageLayout.None;
@@ -313,6 +343,11 @@ namespace PonyTownHotbars
             }
         }
 
+        Dictionary<EmoteMap.SPECIAL, Image> SpecialImages = new Dictionary<EmoteMap.SPECIAL, Image>();
+        Dictionary<PonyTownActions, Image> ActionImages = new Dictionary<PonyTownActions, Image>();
+        Dictionary<PonyTownCommands, Image> CommandImages = new Dictionary<PonyTownCommands, Image>();
+        //Dictionary<string, Image> CachedImages = new Dictionary<string, Image>();
+
         private void Form1_Load(object sender, EventArgs e)
         {
             filePath.Text = Application.StartupPath;
@@ -320,6 +355,35 @@ namespace PonyTownHotbars
             {
                 filePath.Text = Properties.Settings.Default.FilePath;
             }
+
+            foreach (EmoteMap.SPECIAL spem in Enum.GetValues(typeof(EmoteMap.SPECIAL)))
+            {
+                Image img = new Bitmap(29, 29);
+                using (Graphics g = Graphics.FromImage(img))
+                {
+                    g.DrawImage(PTEmoteImageMap, -29 * (int)spem, 0);
+                }
+                SpecialImages.Add(spem, img);
+            }
+            foreach (PonyTownActions spem in Enum.GetValues(typeof(PonyTownActions)))
+            {
+                Image img = new Bitmap(29, 29);
+                using (Graphics g = Graphics.FromImage(img))
+                {
+                    g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)spem, 29 * EmoteMap.ACTIONS, 29, 29), GraphicsUnit.Pixel);
+                }
+                ActionImages.Add(spem, img);
+            }
+            foreach (PonyTownCommands spem in Enum.GetValues(typeof(PonyTownCommands)))
+            {
+                Image img = new Bitmap(29, 29);
+                using (Graphics g = Graphics.FromImage(img))
+                {
+                    g.DrawImage(PTEmoteImageMap, new Rectangle(0, 0, 29, 29), new Rectangle(29 * (int)spem, 29 * EmoteMap.COMMANDS, 29, 29), GraphicsUnit.Pixel);
+                }
+                CommandImages.Add(spem, img);
+            }
+
             //statusLabel.Text = "Loading hotbars from " + filePath.Text;
             setUpHotbars();
 
@@ -353,7 +417,7 @@ namespace PonyTownHotbars
                     flp.AutoSize = true;
                     flp.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                     //flp.Name = "";
-                    flp.BackColor = Color.FromArgb(124,202,146);
+                    flp.BackColor = PTColors.BarBackground;
                     flp.Height = 30;
                     //  flp.Width = hotbarPanel.Width - hotbarPanel.Margin.Horizontal - 30;
 
@@ -380,7 +444,8 @@ namespace PonyTownHotbars
                     filebutton.FlatAppearance.BorderSize = 2;
                     filebutton.FlatStyle = FlatStyle.Flat;
 
-                    filebutton.FlatAppearance.BorderColor = Color.FromArgb(183, 132, 110);
+                    filebutton.BackColor = PTColors.Program;
+                    filebutton.FlatAppearance.BorderColor = PTColors.ProgramOutline;
                     filebutton.FlatAppearance.MouseOverBackColor = filebutton.BackColor;
                     filebutton.FlatAppearance.MouseDownBackColor = filebutton.BackColor;
                     filebutton.Click += (object sender, EventArgs e) =>
@@ -391,13 +456,7 @@ namespace PonyTownHotbars
                     flp.Controls.Add(filebutton);
                     emoteTooltips.SetToolTip(filebutton, "Copy Filepath to Clipboard\nPaste directly into \"File Name\" field when importing a hotbar.");
 
-
-                    Image img = new Bitmap(29, 29);
-                    using (Graphics g = Graphics.FromImage(img))
-                    {
-                        g.DrawImage(PTEmoteImageMap, -29 * (int)EmoteMap.SPECIAL.FOLDER, 0);
-                    }
-                    filebutton.BackgroundImage = img;
+                    filebutton.BackgroundImage = SpecialImages[EmoteMap.SPECIAL.CLIPBOARD];
                     filebutton.BackgroundImageLayout = ImageLayout.None;
 
                     if (Path.GetExtension(fl) == ".json")
@@ -405,6 +464,24 @@ namespace PonyTownHotbars
                         try
                         {
                             PonyTownSlot[] slots = JsonConvert.DeserializeObject<PonyTownSlot[]>(File.ReadAllText(fl));
+
+                            Button info_btn = new Button();
+                            info_btn.Width = 33;
+                            info_btn.Height = 33;
+                            info_btn.FlatAppearance.BorderSize = 2;
+                            info_btn.FlatStyle = FlatStyle.Flat;
+
+                            info_btn.BackColor = PTColors.Program;
+                            info_btn.FlatAppearance.BorderColor = PTColors.ProgramOutline;
+                            info_btn.FlatAppearance.MouseOverBackColor = filebutton.BackColor;
+                            info_btn.FlatAppearance.MouseDownBackColor = filebutton.BackColor;
+
+                            flp.Controls.Add(info_btn);
+                            emoteTooltips.SetToolTip(info_btn, "Main Hotbar: " + slots.Length + " Slots.");
+
+                            info_btn.BackgroundImage = SpecialImages[EmoteMap.SPECIAL.INFORMATION];
+                            info_btn.BackgroundImageLayout = ImageLayout.None;
+
                             for (Int32 cnt = 0; cnt < slots.Length; cnt++)
                             {
                                 Button btn = new Button();
@@ -440,9 +517,32 @@ namespace PonyTownHotbars
                             bin.BaseStream.Position = 0;
 
                             byte[] header = bin.ReadBytes(5);
-
                             UInt16 amt = bin.ReadByte();
-                            if(amt < 50 && amt > 1) { amt--; }
+                            UInt16 amt2 = header[4] == 1 ? bin.ReadByte() : (ushort)0;
+                            //if (amt < 50 && amt > 1) { amt--; }
+                            //if (amt2 < 10 && amt2 > 1) { amt2--; }
+
+                            //if (debugView.Checked){
+                            Button info_btn = new Button();
+                            info_btn.Width = 33;
+                            info_btn.Height = 33;
+                            info_btn.FlatAppearance.BorderSize = 2;
+                            info_btn.FlatStyle = FlatStyle.Flat;
+
+                            info_btn.BackColor = PTColors.Program;
+                            info_btn.FlatAppearance.BorderColor = PTColors.ProgramOutline;
+                            info_btn.FlatAppearance.MouseOverBackColor = filebutton.BackColor;
+                            info_btn.FlatAppearance.MouseDownBackColor = filebutton.BackColor;
+
+                            flp.Controls.Add(info_btn);
+                            emoteTooltips.SetToolTip(info_btn, "Main Hotbar: " + amt + " Slots\n" + 
+                                (header[4] > 0 ? "Vertical Hotbar: " + amt2 + " Slots\n" + (amt+amt2) + " Total Slots\n" : "") + 
+                                "Header: " + BitConverter.ToString(header.ToArray()) );
+
+                            info_btn.BackgroundImage = SpecialImages[EmoteMap.SPECIAL.INFORMATION];
+                            info_btn.BackgroundImageLayout = ImageLayout.None;
+                            //}
+
                             for(Int32 cnt = 0; cnt < amt; cnt++)
                             {
                                 Button btn = new Button();
@@ -468,7 +568,9 @@ namespace PonyTownHotbars
                                 }
                                 else if (oop == 0)
                                 {
-                                    setPonyTownIcon(btn, new PonyTownSlot() { });
+                                    //if (cnt < amt) {
+                                        setPonyTownIcon(btn, new PonyTownSlot() { });
+                                    //}
                                 }
                                 else
                                 {
@@ -478,13 +580,81 @@ namespace PonyTownHotbars
                                     {
                                         extra.Add(bin.ReadByte());
                                     }
-                                    emoteTooltips.SetToolTip(btn, "Unknown Segment:/n" + BitConverter.ToString(extra.ToArray()));
+                                    emoteTooltips.SetToolTip(btn, "Unknown Segment:\n" + BitConverter.ToString(extra.ToArray()));
                                     //btn.Text = "ACT\n" + BitConverter.ToString(extra.ToArray());
                                 }
 
                                 
                                 flp.Controls.Add(btn);
                             }
+
+                            if (header[4] > 0)
+                            {
+                                Button vertbtn = new Button();
+                                vertbtn.Width = 33;
+                                vertbtn.Height = 33;
+                                vertbtn.FlatAppearance.BorderSize = 2;
+                                vertbtn.FlatStyle = FlatStyle.Flat;
+
+                                vertbtn.BackColor = PTColors.Program;
+                                vertbtn.FlatAppearance.BorderColor = PTColors.ProgramOutline;
+                                vertbtn.FlatAppearance.MouseOverBackColor = filebutton.BackColor;
+                                vertbtn.FlatAppearance.MouseDownBackColor = filebutton.BackColor;
+
+                                vertbtn.BackgroundImage = SpecialImages[EmoteMap.SPECIAL.VERTICAL_BAR];
+
+                                flp.Controls.Add(vertbtn);
+                                emoteTooltips.SetToolTip(vertbtn, "Vertical Hotbar: "+amt2+" Slots");
+
+                                //if (amt < 50 && amt > 1) { bin.ReadByte(); }
+
+                                for (Int32 cnt = 0; cnt < amt2; cnt++)
+                                {
+                                    Button btn = new Button();
+                                    btn.Width = 33;
+                                    btn.Height = 33;
+                                    btn.FlatAppearance.BorderSize = 2;
+                                    btn.FlatStyle = FlatStyle.Flat;
+
+                                    ushort oop = bin.ReadByte();
+                                    if (oop == 3)
+                                    {
+                                        Int64 expr1 = BitConverter.ToInt32(bin.ReadBytes(4), 0);
+                                        Int64 expr2 = BitConverter.ToInt32(bin.ReadBytes(4), 0);
+                                        setPonyTownIcon(btn, new PonyTownEmote(expr1, expr2));
+                                    }
+                                    else if (oop == 1)
+                                    {
+                                        setPonyTownIcon(btn, new PonyTownSlot() { act = bin.ReadString() });
+                                    }
+                                    else if (oop == 2)
+                                    {
+                                        setPonyTownIcon(btn, new PonyTownSlot() { cmd = bin.ReadString() });
+                                    }
+                                    else if (oop == 0)
+                                    {
+                                        //if (cnt < amt2) {
+                                            setPonyTownIcon(btn, new PonyTownSlot() { });
+                                        //}
+                                    }
+                                    else
+                                    {
+                                        List<byte> extra = new byte[] { }.ToList();
+
+                                        while (bin.PeekChar() > 3)
+                                        {
+                                            extra.Add(bin.ReadByte());
+                                        }
+                                        emoteTooltips.SetToolTip(btn, "Unknown Segment:\n" + BitConverter.ToString(extra.ToArray()));
+                                        //btn.Text = "ACT\n" + BitConverter.ToString(extra.ToArray());
+                                    }
+
+
+                                    flp.Controls.Add(btn);
+                                }
+                            }
+
+                            
                         }
                         catch (Exception ex)
                         {
@@ -496,14 +666,7 @@ namespace PonyTownHotbars
                             lb.ForeColor = Color.FromArgb(255, 128, 0, 0);
                             gb.Controls.Add(lb);
                         }
-
-                        //Label lb = new Label();
-                        //lb.Top = lb.Margin.Top + gb.Padding.Top + 14;
-                        //lb.Left = lb.Margin.Left + gb.Padding.Left;
-                        //lb.AutoSize = true;
-                        //lb.Text = "PTA Format not supported yet.";
-                        //lb.ForeColor = Color.FromArgb(255, 128, 0, 0);
-                        //gb.Controls.Add(lb);
+                        
                     }
 
                     gb.Controls.Add(flp);
@@ -539,7 +702,7 @@ namespace PonyTownHotbars
 
         private void filePath_TextChanged(object sender, EventArgs e)
         {
-            setUpHotbars();
+            //setUpHotbars();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -550,6 +713,7 @@ namespace PonyTownHotbars
             if (res == DialogResult.OK)
             {
                 filePath.Text = fld.SelectedPath;
+                setUpHotbars();
             }
         }
 
@@ -579,13 +743,13 @@ namespace PonyTownHotbars
 
         private void debugView_CheckedChanged(object sender, EventArgs e)
         {
-            if( Control.ModifierKeys != Keys.Shift)
-            {
-                debugView.CheckedChanged -= debugView_CheckedChanged;
-                debugView.Checked = !debugView.Checked;
-                debugView.CheckedChanged += debugView_CheckedChanged;
-            }
-            debugView.Text = debugView.Checked ? "Reload 🔍" : "Reload [  ]";
+            //if( Control.ModifierKeys != Keys.Shift)
+            //{
+            //    debugMode.CheckedChanged -= debugView_CheckedChanged;
+            //    debugMode.Checked = !debugMode.Checked;
+            //    debugMode.CheckedChanged += debugView_CheckedChanged;
+            //}
+            //debugMode.Text = debugMode.Checked ? "Reload 🔍" : "Reload [  ]";
             hotbarPanel.Focus();
             setUpHotbars();
         }
@@ -593,6 +757,12 @@ namespace PonyTownHotbars
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/superstorm192/PonyTownHotbars");
+        }
+
+        private void reload_Click(object sender, EventArgs e)
+        {
+            hotbarPanel.Focus();
+            setUpHotbars();
         }
     }
 
@@ -836,7 +1006,8 @@ namespace PonyTownHotbars
         DOWN, UP, BOOP, TURN_HEAD, SNEEZE, SLEEP, YAWN, LOVE, LAUGH, BLUSH, CRY, TEARS, KISS, DROP, DROP_TOY, MAGIC,
         EAT, NOM, USE, CHAR_EDITOR, UNDO, REDO, SWITCH_TOOL, SWITCH_ENTITY, SWITCH_ENTITY_REV, NEXT_COLOR, NEXT_SEASON,
         MOVE_ENTITY, CLONE_ENTITY, REMOVE_ENTITY, SWITCH_TILE, SWITCH_TILE_REV, TOGGLE_WALL, SWITCH_WALL_REV,
-        MANAGE_MAPS, WALLS_MODE, DANCE, DANCE2, DANCE3, DANCE4, DANCE5, DANCE6, DANCE7, DANCE8, JUMP, MASK_DOWN, APPLAUD, APPLAUD2
+        MANAGE_MAPS, WALLS_MODE, DANCE, DANCE2, DANCE3, DANCE4, DANCE5, DANCE6, DANCE7, DANCE8, JUMP, MASK_DOWN, APPLAUD, APPLAUD2,
+        ZOOM_IN, ZOOM_OUT
     }
     public enum PonyTownCommands
     {
@@ -845,7 +1016,7 @@ namespace PonyTownHotbars
     }
     public static class EmoteMap
     {
-        public enum SPECIAL { FOLDER, RESET_EXPRESSION, INVALID_ACTION, INVALID_COMMAND, EXPRESSION_BASE };
+        public enum SPECIAL { CLIPBOARD, RESET_EXPRESSION, INVALID_ACTION, INFORMATION, VERTICAL_BAR, FOLDER};
         public static int LOOK = 1;
         public static int EYES = 2;
         public static int MOUTHS = 7;
